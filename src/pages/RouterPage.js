@@ -5,6 +5,11 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React from "react";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
+import CreateTicketPage from "./CreateTicketPage";
+import LoginPage from "./LoginPage";
+import QueuePage from "./QueuePage";
+import DesktopPage from "./DesktopPage";
 const { Sider, Content } = Layout;
 
 const RouterPage = () => {
@@ -14,13 +19,13 @@ const RouterPage = () => {
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key={1} icon={<UserOutlined />}>
-            Login
+            <Link to="/login">Login</Link>
           </Menu.Item>
           <Menu.Item key={2} icon={<VideoCameraOutlined />}>
-            Queue
+            <Link to="/queue">Queue</Link>
           </Menu.Item>
           <Menu.Item key={3} icon={<UploadOutlined />}>
-            Create Ticket
+            <Link to="/create">Create Ticket</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -33,7 +38,15 @@ const RouterPage = () => {
             minHeight: 280,
           }}
         >
-          Content
+          <Routes>
+            <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/queue" element={<QueuePage />}></Route>
+            <Route path="/create" element={<CreateTicketPage />}></Route>
+
+            <Route path="/desktop" element={<DesktopPage />}></Route>
+
+            <Route path="/*" element={<Navigate to="/login" />}></Route>
+          </Routes>
         </Content>
       </Layout>
     </Layout>
