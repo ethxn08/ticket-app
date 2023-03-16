@@ -4,18 +4,26 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import CreateTicketPage from "./CreateTicketPage";
 import LoginPage from "./LoginPage";
 import QueuePage from "./QueuePage";
 import DesktopPage from "./DesktopPage";
+import { UIContext } from "../context/UIContext";
 const { Sider, Content } = Layout;
 
 const RouterPage = () => {
+  const { hiddenMenu } = useContext(UIContext);
   return (
-    <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsedWidth="0" breakpoint="md">
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsedWidth="0"
+        breakpoint="md"
+        hidden={hiddenMenu}
+      >
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key={1} icon={<UserOutlined />}>

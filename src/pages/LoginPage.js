@@ -1,24 +1,28 @@
 import { SaveOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Checkbox,
-  Divider,
-  Form,
-  Input,
-  InputNumber,
-  Typography,
-} from "antd";
+import { Button, Divider, Form, Input, InputNumber, Typography } from "antd";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserStorage } from "../helpers/getUserStorage";
+import useHideMenu from "../hooks/useHideMenu";
 const LoginPage = () => {
+  useHideMenu(false);
+  const [user] = useState(getUserStorage());
   const navigate = useNavigate();
   const { Title, Text } = Typography;
-  const onFinish = (values) => {
-    console.log("Success:", values);
+
+  const onFinish = ({ agent, desktop }) => {
     navigate("/desktop");
+    localStorage.setItem("agent", agent);
+    localStorage.setItem("desktop", desktop);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  if (user.agent && user.desktop) {
+    return navigate("/desktop");
+  }
   return (
     <>
       <Title
@@ -59,7 +63,7 @@ const LoginPage = () => {
       >
         <Form.Item
           label="Agent Name"
-          name="Agent Name"
+          name="agent"
           rules={[
             {
               required: true,
@@ -72,7 +76,7 @@ const LoginPage = () => {
 
         <Form.Item
           label="Desktop Number"
-          name="Desktop Number"
+          name="desktop"
           rules={[
             {
               required: true,
