@@ -1,7 +1,8 @@
 import { CloseCircleOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Row, Typography } from "antd";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../context/SocketContext";
 import { getUserStorage } from "../helpers/getUserStorage";
 import useHideMenu from "../hooks/useHideMenu";
 const { Title, Text } = Typography;
@@ -10,15 +11,18 @@ const DesktopPage = () => {
   const navigate = useNavigate();
   useHideMenu(false);
   const [user] = useState(getUserStorage());
-
+  const [ticket, setTicket] = useState(null);
+  const { socket } = useContext(SocketContext);
   const onExit = () => {
-    console.log("Exit....");
     localStorage.clear();
     return navigate("/login");
   };
 
   const nextTicket = () => {
-    console.log("Next ticket");
+    console.log(user);
+    socket.emit("next-ticket-works", user, (ticket) => {
+      setTicket(ticket);
+    });
   };
 
   if (!user.agent || !user.desktop) {
@@ -57,12 +61,22 @@ const DesktopPage = () => {
         </Col>
       </Row>
       <Divider />
-      <Row>
-        <Col>
-          <Text>Esta atendiendo el tiquet numero: </Text>
-          <span style={{ fontSize: "18px", color: "green" }}>55</span>
-        </Col>
-      </Row>
+      {ticket !== null ? (
+        <Row>
+          <Col>
+            <Text>Esta atendiendo el tiquet numero: </Text>
+            <span style={{ fontSize: "18px", color: "green" }}>
+              {ticket.number}
+            </span>
+          </Col>
+        </Row>
+      ) : (
+        <Row>
+          <Col>
+            <Text>You have no assigned tickets </Text>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
