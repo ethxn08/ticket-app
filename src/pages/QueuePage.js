@@ -1,6 +1,7 @@
 import { Card, Col, Divider, List, Row, Tag, Typography } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
+import { getLast } from "../helpers/getLast";
 import useHideMenu from "../hooks/useHideMenu";
 
 const { Title, Text } = Typography;
@@ -9,7 +10,9 @@ const QueuePage = () => {
   useHideMenu(true);
   const { socket } = useContext(SocketContext);
   const [data, setData] = useState([]);
-
+  useEffect(() => {
+    getLast().then((data) => data);
+  }, []);
   useEffect(() => {
     socket.on("asigned-ticket", (asigned) => {
       setData(asigned);
