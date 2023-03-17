@@ -6,8 +6,7 @@ A continuación dejo un video de el resultado.
 https://user-images.githubusercontent.com/91902123/225886891-c2fbd69a-4073-4a2c-8d84-312d152b03c9.mp4
 
 
-En caso de querer ejecutar en tu equipo de manera local deberas: 
-
+#En caso de querer ejecutar en tu equipo de manera local deberas: 
 ### `npm i`
 Con este comando descargas los paquetes necesarios para que la aplicación funcione.
 
