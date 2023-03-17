@@ -15,7 +15,7 @@ Con este comando puedes ver la aplicación en tu equipo local.
 Abre [http://localhost:3000](http://localhost:3000) para verlo en tu navegador.
 
 
-Además de esto tambien tendrás que descargar el backend de la app (aquí) [https://github.com/ethxn08/ticket-app-server], y ejecutar los siguientes comandos: 
+Además de esto tambien tendrás que descargar el backend de la app aquí [https://github.com/ethxn08/ticket-app-server], y ejecutar los siguientes comandos: 
 
 ### `npm i`
 Con este comando descargas los paquetes necesarios para que el servidor funcione.
